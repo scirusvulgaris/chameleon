@@ -139,15 +139,16 @@ class PSTree:
 
 class ObfuscationLevel:
     def __init__(self, lvl_id=0):
+        # I found min and max var rather large thus lowered them to <5 and keeping file size small
         # Random string min and max size
-        self.random_min = 25
-        self.random_max = 1000
+        self.random_min = 2
+        self.random_max = 5
         # Junk size - Comments
-        self.junk_min = 125
-        self.junk_max = 2000
+        self.junk_min = 2
+        self.junk_max = 5
         # Function names
-        self.function_min = 40
-        self.function_max = 41
+        self.function_min = 2
+        self.function_max = 5
         # Token min and max size (min is 1)
         # Max=0: Unlimited
         self.token_min = 1
@@ -223,7 +224,9 @@ class Chameleon:
     def __init__(self, filename, outfile, config: dict = None, lvl_id: int = 0, fmap: str = None, quiet: bool = False):
         self.content = None
         self.outfile = outfile
-        self.eol = os.linesep
+        #this will replace /n with ";" at the end of new varibles
+        #self.eol = os.linesep
+        self.eol = ";"
         self.load_from_file(filename=filename)
         self.quiet = quiet
         # Use case randomization
